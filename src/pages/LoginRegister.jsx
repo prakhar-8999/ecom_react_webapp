@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import apihit from '../static/axios';
 import Footer from '../components/Footer';
 import '../styles/loginregister.css'
+import Alert from '../static/Alert';
 
 const LoginRegister = () => {
 
@@ -42,10 +43,11 @@ const LoginRegister = () => {
         apihit.post('user/otp', { username: reuser, email: reemail, password: repass })
             .then(res => {
                 document.getElementById('open-modal').click()
-                console.log(res);
+                console.log(res.status, res.data.msg);
             })
             .catch(err => {
                 console.log(err);
+                Alert(err.response.status, err.response.data.msg)
             })
     }
 
@@ -55,9 +57,13 @@ const LoginRegister = () => {
         apihit.post('user/register', { username: reuser, email: reemail, password: repass, otp: otp })
             .then(res => {
                 console.log(res);
+                document.getElementById('modal-close').click()
+                Alert(res.status, res.data.msg)
             })
             .catch(err => {
                 console.log(err);
+                console.log(err.response.status);
+                Alert(err.response.status, err.response.data.msg)
             })
     }
 
