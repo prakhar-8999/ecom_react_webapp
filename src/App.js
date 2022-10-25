@@ -8,6 +8,7 @@ import {
 import Home from './pages/Home'
 import Page404 from './pages/Page404'
 import LoginRegister from './pages/LoginRegister';
+import Dashboard from './pages/Dashboard';
 function App() {
   return (
     <Router>
@@ -15,7 +16,7 @@ function App() {
             <Route path="/" element={<Home/>} />
             <Route path="*" element={<Page404/>}/>
             <Route path="/LoginRegister" element={<LoginRegister/>}/>
-            {/* <Route path="/Register" element={<Register/>}/> */}
+            <Route path="/Dashboard" element={<Dashboard/>}/>
           </Routes>
         </Router>
   );

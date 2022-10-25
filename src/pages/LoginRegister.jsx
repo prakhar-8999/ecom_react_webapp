@@ -71,7 +71,6 @@ const LoginRegister = () => {
 
     return (
         <>
-            {/* <body> */}
             <div class="container123" id="main_div">
                 <div class="forms-container">
                     <div class="signin-signup">
@@ -163,7 +162,6 @@ const LoginRegister = () => {
                     </div>
                 </div>
             </div>
-            {/* </body> */}
             <div class="mob-view">
                 <Footer />
             </div>
