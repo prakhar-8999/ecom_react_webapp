@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseurl = 'http://localhost:8000/';
+const baseurl = 'http://192.168.29.205:8000/';
 
 const apihit = axios.create({
     baseURL: baseurl,
