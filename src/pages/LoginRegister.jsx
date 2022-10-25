@@ -13,6 +13,8 @@ const LoginRegister = () => {
     const [louser, setlouser] = useState('')
     const [lopass, setlopass] = useState('')
     const [otp, setotp] = useState('')
+
+    const [upbtn, setupbtn] = useState(false)
     // const sign_in_btn = document.getElementById("sign-in-btn");
     // const sign_up_btn = document.getElementById("sign-up-btn");
     // const container = document.getElementById("container");
