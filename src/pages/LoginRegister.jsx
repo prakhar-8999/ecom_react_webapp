@@ -3,6 +3,8 @@ import apihit from '../static/axios';
 import Footer from '../components/Footer';
 import '../styles/loginregister.css'
 import Alert from '../static/Alert';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const LoginRegister = () => {
 
@@ -15,6 +17,9 @@ const LoginRegister = () => {
     const [otp, setotp] = useState('')
 
     const [upbtn, setupbtn] = useState(false)
+    const [lobtn, setlobtn] = useState(false)
+
+    const navigate = useNavigate()
     // const sign_in_btn = document.getElementById("sign-in-btn");
     // const sign_up_btn = document.getElementById("sign-up-btn");
     // const container = document.getElementById("container");
@@ -41,21 +46,47 @@ const LoginRegister = () => {
 
     const signup = (event) => {
         event.preventDefault()
-        console.log({ username: reuser, email: reemail, password: repass });
-        apihit.post('user/otp', { username: reuser, email: reemail, password: repass })
-            .then(res => {
-                document.getElementById('open-modal').click()
-                console.log(res.status, res.data.msg);
+        setupbtn(true)
+
+        if (reuser === undefined || reuser === '') {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Username is required !!!!',
             })
-            .catch(err => {
-                console.log(err);
-                Alert(err.response.status, err.response.data.msg)
+        }
+        else if (reemail === undefined || reemail === '') {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Email is required !!!!',
             })
+        }
+        else if (repass === undefined || repass === '') {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Password is required !!!!',
+            })
+        }
+        else {
+            console.log({ username: reuser, email: reemail, password: repass });
+
+            apihit.post('user/otp', { username: reuser, email: reemail, password: repass })
+                .then(res => {
+                    document.getElementById('open-modal').click()
+                    console.log(res.status, res.data.msg);
+                    setupbtn(false)
+                })
+                .catch(err => {
+                    console.log(err);
+                    setupbtn(false)
+                    Alert(err.response.status, err.response.data.msg)
+                })
+        }
     }
 
     const otpverify = (event) => {
         event.preventDefault()
         console.log({ username: reuser, email: reemail, password: repass, otp: otp });
+
         apihit.post('user/register', { username: reuser, email: reemail, password: repass, otp: otp })
             .then(res => {
                 console.log(res);
@@ -67,24 +98,61 @@ const LoginRegister = () => {
                 console.log(err.response.status);
                 Alert(err.response.status, err.response.data.msg)
             })
+
     }
+
+
+    const login = (event) => {
+        event.preventDefault()
+        if (louser === undefined || louser === '') {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Username is required !!!!',
+            })
+        }
+        else if (lopass === undefined || lopass === '') {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Password is required !!!!',
+            })
+        }
+        else {
+            setlobtn(true)
+            console.log({ username: louser, password: lopass });
+            apihit.post('user/login', { username: louser, password: lopass })
+                .then(res => {
+                    console.log(res)
+                    localStorage.setItem('access', res.data.access)
+                    setlobtn(false)
+                    // navigate("/Dashboard")
+                })
+                .catch(err => {
+                    console.log(err);
+                    setlobtn(false)
+                    Alert(err.response.status, err.response.data.msg)
+                })
+        }
+    }
+
 
     return (
         <>
             <div class="container123" id="main_div">
                 <div class="forms-container">
                     <div class="signin-signup">
-                        <form action="#" class="sign-in-form">
+                        <form class="sign-in-form" onSubmit={login}>
                             <h2 class="title">Sign in</h2>
                             <div class="input-field">
                                 <i class="fas fa-user"></i>
-                                <input type="text" placeholder="Username" />
+                                <input type="text" placeholder="Username" onChange={(e) => setlouser(e.target.value)} />
                             </div>
                             <div class="input-field">
                                 <i class="fas fa-lock"></i>
-                                <input type="password" placeholder="Password" />
+                                <input type="password" placeholder="Password" onChange={(e) => setlopass(e.target.value)} />
                             </div>
-                            <input type="submit" value="Login" class="btn solid" />
+                            <button type="submit" disabled={lobtn} class="btn solid">
+                                Login {lobtn ? <i className="fas fa-circle-notch fa-spin" style={{ marginLeft: "20px" }} /> : null}
+                            </button>
                             <p class="social-text">Or Sign in with social platforms</p>
                             <div class="social-media">
                                 <a href="#" class="social-icon">
@@ -115,7 +183,9 @@ const LoginRegister = () => {
                                 <i class="fas fa-lock"></i>
                                 <input type="password" placeholder="Password" onChange={(e) => setrepass(e.target.value)} />
                             </div>
-                            <input type="submit" class="btn" value="Sign up" />
+                            <button type="submit" disabled={upbtn} class="btn">
+                                Sign Up {upbtn ? <i className="fas fa-circle-notch fa-spin" style={{ marginLeft: "20px" }} /> : null}
+                            </button>
                             <p class="social-text">Or Sign up with social platforms</p>
                             <div class="social-media">
                                 <a href="#" class="social-icon">
