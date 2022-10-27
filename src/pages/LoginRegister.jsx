@@ -46,7 +46,6 @@ const LoginRegister = () => {
 
     const signup = (event) => {
         event.preventDefault()
-        setupbtn(true)
 
         if (reuser === undefined || reuser === '') {
             Swal.fire({
@@ -67,6 +66,8 @@ const LoginRegister = () => {
             })
         }
         else {
+            setupbtn(true)
+
             console.log({ username: reuser, email: reemail, password: repass });
 
             apihit.post('user/otp', { username: reuser, email: reemail, password: repass })
