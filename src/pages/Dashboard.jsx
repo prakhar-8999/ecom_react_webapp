@@ -1,6 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import apihit from '../static/axios'
 import '../styles/dashboard.css'
 const Dashboard = () => {
+
+
+    const dashhit = () => {
+        apihit.get('user/details')
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
+    setTimeout(() => dashhit(), 6000);
+    // useEffect(() => {
+    //     dashhit()
+    // }, [])
+
+
+
     return (
         <div>
             <input type="checkbox" id="nav-toggle" />
