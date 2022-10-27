@@ -125,7 +125,7 @@ const LoginRegister = () => {
                     console.log(res)
                     localStorage.setItem('access', res.data.access)
                     setlobtn(false)
-                    // navigate("/Dashboard")
+                    navigate("/Dashboard")
                 })
                 .catch(err => {
                     console.log(err);
