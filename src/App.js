@@ -9,6 +9,13 @@ import Home from './pages/Home'
 import Page404 from './pages/Page404'
 import LoginRegister from './pages/LoginRegister';
 import Dashboard from './pages/Dashboard';
+import Dashhome from './pages/Dashhome'
+import Profile from './pages/Profile';
+import Orders from './pages/Orders';
+import MyCart from './pages/MyCart';
+import Wallet from './pages/Wallet';
+import Transactions from './pages/Transactions';
+import Addproducts from './pages/Addproducts';
 function App() {
   return (
     <Router>
@@ -16,7 +23,15 @@ function App() {
             <Route path="/" element={<Home/>} />
             <Route path="*" element={<Page404/>}/>
             <Route path="/LoginRegister" element={<LoginRegister/>}/>
-            <Route path="/Dashboard" element={<Dashboard/>}/>
+            <Route path="/Dashboard" element={<Dashboard/>}>
+              <Route path="" element={<Dashhome/>}/>
+              <Route path="profile" element={<Profile/>}/>
+              <Route path="orders" element={<Orders/>}/>
+              <Route path="cart" element={<MyCart/>}/>
+              <Route path="wallet" element={<Wallet/>}/>
+              <Route path="transactions" element={<Transactions/>}/>
+              <Route path="addproducts" element={<Addproducts/>}/>
+            </Route>
           </Routes>
         </Router>
   );

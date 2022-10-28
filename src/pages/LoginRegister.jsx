@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import '../styles/loginregister.css'
 import Alert from '../static/Alert';
 import Swal from 'sweetalert2';
+import { message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 const LoginRegister = () => {
@@ -11,6 +12,7 @@ const LoginRegister = () => {
     const [reuser, setreuser] = useState('')
     const [repass, setrepass] = useState('')
     const [reemail, setreemail] = useState('')
+    const [reperson, setreperson] = useState('user')
 
     const [louser, setlouser] = useState('')
     const [lopass, setlopass] = useState('')
@@ -66,9 +68,9 @@ const LoginRegister = () => {
             })
         }
         else {
-            setupbtn(true)
+            // setupbtn(true)
 
-            console.log({ username: reuser, email: reemail, password: repass });
+            console.log({ username: reuser, email: reemail, password: repass, person: reperson });
 
             apihit.post('user/otp', { username: reuser, email: reemail, password: repass })
                 .then(res => {
@@ -84,11 +86,16 @@ const LoginRegister = () => {
         }
     }
 
+    const radiochange = event => {
+        console.log(event.target.value);
+        setreperson(event.target.value);
+    };
+
     const otpverify = (event) => {
         event.preventDefault()
         console.log({ username: reuser, email: reemail, password: repass, otp: otp });
 
-        apihit.post('user/register', { username: reuser, email: reemail, password: repass, otp: otp })
+        apihit.post('user/register', { username: reuser, email: reemail, password: repass, otp: otp, person: reperson })
             .then(res => {
                 console.log(res);
                 document.getElementById('modal-close').click()
@@ -122,10 +129,12 @@ const LoginRegister = () => {
             console.log({ username: louser, password: lopass });
             apihit.post('user/login', { username: louser, password: lopass })
                 .then(res => {
-                    console.log(res)
                     localStorage.setItem('access', res.data.access)
+                    console.log(res)
+                    message.success('Login Successfull !!!!')
                     setlobtn(false)
                     navigate("/Dashboard")
+
                 })
                 .catch(err => {
                     console.log(err);
@@ -184,6 +193,18 @@ const LoginRegister = () => {
                                 <i class="fas fa-lock"></i>
                                 <input type="password" placeholder="Password" onChange={(e) => setrepass(e.target.value)} />
                             </div>
+                            <div class="grid sm:grid-cols-2 gap-2">
+                                <label for="hs-radio-on-right" class="flex p-3 block w-full bg-white border border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400">
+                                    <span class="text-sm text-gray-500 dark:text-gray-400">User</span>
+                                    <input checked={reperson === 'user'} type="radio" value="user" onChange={radiochange} name="person" class="shrink-0 ml-6 mt-0.5 border-gray-200 rounded-full text-blue-600 pointer-events-none focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-radio-on-right" />
+                                </label>
+
+                                <label for="hs-radioradio-on-right" class="flex p-3 block w-full bg-white border border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400">
+                                    <span class="text-sm text-gray-500 dark:text-gray-400">Owner</span>
+                                    <input type="radio" checked={reperson === 'owner'} value="owner" onChange={radiochange} name="person" class="shrink-0 ml-6 mt-0.5 border-gray-200 rounded-full text-blue-600 pointer-events-none focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-radioradio-on-right" />
+                                </label>
+                            </div>
+
                             <button type="submit" disabled={upbtn} class="btn">
                                 Sign Up {upbtn ? <i className="fas fa-circle-notch fa-spin" style={{ marginLeft: "20px" }} /> : null}
                             </button>
