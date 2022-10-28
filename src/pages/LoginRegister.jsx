@@ -131,7 +131,13 @@ const LoginRegister = () => {
                 .then(res => {
                     localStorage.setItem('access', res.data.access)
                     console.log(res)
-                    message.success('Login Successfull !!!!')
+                    message.success({
+                        content: 'Login Successfull !!!!',
+                        className: 'custom-class',
+                        style: {
+                            marginTop: '3cm',
+                        },
+                    });
                     setlobtn(false)
                     navigate("/Dashboard")
 
