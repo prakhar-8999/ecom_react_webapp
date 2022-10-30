@@ -80,7 +80,7 @@ const Wallet = () => {
             "key": "rzp_test_qycxQCOUz8vIWo", // Enter the Key ID generated from the Dashboard
             "amount": payd.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
             "currency": "INR",
-            "name": "Acme Corp",
+            "name": "Ecom Services",
             "description": "Test Transaction",
             "image": "https://play-lh.googleusercontent.com/DTzWtkxfnKwFO3ruybY1SKjJQnLYeuK3KmQmwV5OQ3dULr5iXxeEtzBLceultrKTIUTr",
             "order_id": payd.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
