@@ -1,20 +1,6 @@
 import axios from "axios";
 
-const baseurl = 'https://192.168.29.205:8000/';
-
-// const headers = { Authorization: localStorage.getItem("access") ? localStorage.getItem("access") : "No Access" };
-
-// const d = () => {
-//     console.log({ Authorization: localStorage.getItem("access") ? localStorage.getItem("access") : "No Access" });
-//     return { Authorization: localStorage.getItem("access") ? localStorage.getItem("access") : "No Access" };
-// }
-
-// const apihit = axios.create({
-//     baseURL: baseurl,
-//     // withCredentials: true
-//     // headers: { 'auth': auth }
-//     headers: d()
-// });
+const baseurl = 'https://192.168.8.134:8000/';
 
 const headers = {
     Authorization: localStorage.getItem("access")

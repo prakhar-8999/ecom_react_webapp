@@ -1,65 +1,191 @@
-import React from 'react'
-const Wallet = () => {
-    return (
-        <>
-            <div class="p-4 w-full text-center bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-                <h5 class="mb-2 text-3xl font-bold text-gray-900 dark:text-white">E - Wallet</h5>
-                <p class="mb-5 text-base text-gray-500 sm:text-lg dark:text-gray-400">Use E - Wallet to make payment eaiser . </p>
-                <br /><br />
-                {/* <div>
-                    <span class="text-2xl font-semibold" style={{ float: 'left' }}>Balance</span>
-                </div> */}
-                <div class="grid grid-cols-2 divide-x divide-green-900">
-                    <div>
-                        <span class="text-2xl font-semibold" style={{ float: 'left' }}>Balance</span>
+import React, { useEffect, useState } from 'react'
+import Swal from 'sweetalert2'
+import Dashloader from '../components/Dashloader'
+import apihit from '../static/axios'
 
+const Wallet = () => {
+
+
+
+    // var Razorpay;
+
+    const [wallet, setwallet] = useState({})
+    const [loader, setloader] = useState(true)
+    const [money, setmoney] = useState('')
+    const [user, setuser] = useState({})
+    const [btnloader, setbtnloader] = useState(false)
+
+
+    const userdetails = () => {
+        apihit.get('user/details')
+            .then(res => {
+                console.log(res);
+                setuser(res.data)
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
+    const getwallet = () => {
+        apihit.get('user/wallet')
+            .then(res => {
+                console.log(res);
+                setwallet(res.data)
+                setloader(false)
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
+    const Addmoney = () => {
+        if (money === '' || money === undefined || money === null) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Money is Required !!!!',
+            })
+        }
+        else {
+            setbtnloader(true)
+            console.log(money)
+            apihit.post('user/addinwallet', { amount: money })
+                .then(res => {
+                    console.log(res);
+                    // setpaydetails(res.data)
+                    startpay(res.data)
+                    // document.getElementById('rzp-button1').click()
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+
+    }
+
+
+
+
+    // var rzp1 = new Razorpay(options);
+    // document.getElementById('rzp-button1').onclick = function (e) {
+    //     rzp1.open();
+    //     e.preventDefault();
+    // }
+
+
+
+    const startpay = (payd) => {
+
+        var options = {
+            "key": "rzp_test_qycxQCOUz8vIWo", // Enter the Key ID generated from the Dashboard
+            "amount": payd.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "currency": "INR",
+            "name": "Acme Corp",
+            "description": "Test Transaction",
+            "image": "https://play-lh.googleusercontent.com/DTzWtkxfnKwFO3ruybY1SKjJQnLYeuK3KmQmwV5OQ3dULr5iXxeEtzBLceultrKTIUTr",
+            "order_id": payd.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            // "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
+            "handler": function (response) {
+                console.log(response);
+                apihit.post('user/addwallet', { odid: response.razorpay_order_id, payid: response.razorpay_payment_id, signid: response.razorpay_signature, amount: payd.amount })
+                    .then(res => {
+                        console.log(res);
+                        setmoney('')
+                        getwallet()
+                        setbtnloader(false)
+                        Swal.fire({
+                            icon: 'success',
+                            text: res.data.msg,
+                        })
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        setbtnloader(false)
+                    })
+                // alert(response.razorpay_payment_id);
+                // alert(response.razorpay_order_id);
+                // alert(response.razorpay_signature)
+            },
+            "prefill": {
+                "name": user.Name,
+                "email": user.Email,
+                "contact": user.Phone
+            },
+            "notes": {
+                "address": "Razorpay Corporate Office"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+        console.log(options);
+
+        var rzp1 = new Razorpay(options);
+
+        rzp1.open();
+        // e.preventDefault();
+
+        rzp1.on('payment.failed', function (response) {
+            setbtnloader(false)
+            Swal.fire({
+                icon: 'error',
+                title: 'Transaction Failed',
+                text: response.error.description,
+                // footer: '<a href="">Why do I have this issue?</a>'
+            })
+            // alert(response.error.code);
+            // alert(response.error.description);
+            // alert(response.error.source);
+            // alert(response.error.step);
+            // alert(response.error.reason);
+            // alert(response.error.metadata.order_id);
+            // alert(response.error.metadata.payment_id);
+        })
+    }
+
+    useEffect(() => {
+        getwallet()
+        userdetails()
+    }, [])
+
+
+    return (
+        loader ? <Dashloader /> :
+            <>
+                <div class="p-4 w-full text-center bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                    <h5 class="mb-2 text-3xl font-bold text-gray-900 dark:text-white">E - Wallet</h5>
+                    <p class="mb-5 text-base text-gray-500 sm:text-lg dark:text-gray-400">Use E - Wallet to make payment eaiser . </p>
+                    <br /><br />
+                    <div class="grid grid-cols-2 divide-x divide-green-900">
+                        <div>
+                            <span class="text-2xl font-semibold" style={{ float: 'left' }}>Balance</span>
+
+                        </div>
+                        <div><span class="text-3xl mr-6 font-semibold" style={{ float: 'right', color: wallet.balance < 100 ? 'red' : 'green' }}>{wallet.balance}</span></div>
                     </div>
-                    {/* <div></div> */}
-                    <div><span class="text-3xl mr-6 font-semibold" style={{ float: 'right' }}>0</span></div>
+                    <br /><br />
+                    <hr />
+                    <br />
                 </div>
-                {/* <div class="vl"></div> */}
                 <br /><br />
-                <hr />
-                <br />
-                {/* <div class="justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
-                    <a href="#" class="w-full sm:w-auto bg-gray-800 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
-                        <svg class="mr-3 w-7 h-7" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="apple" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"></path></svg>
-                        <div class="text-left">
-                            <div class="mb-1 text-xs">Download on the</div>
-                            <div class="-mt-1 font-sans text-sm font-semibold">Mac App Store</div>
+                <div class="p-4 w-full text-center bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                    <p class="mb-5 text-base text-gray-500 sm:text-lg dark:text-gray-400">Add Money to your wallet Instantly , Safe and Secure !</p>
+                    <div class="justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
+                        <div>
+                            <div class="relative">
+                                <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                                    <i class="fa-solid fa-coins"></i>
+                                </div>
+                                <input type="number" value={money} id="search" onChange={(e) => setmoney(e.target.value)} class=" p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Money" />
+                                <button type="button" disabled={btnloader} onClick={Addmoney} class="text-white absolute right-2.5 bottom-2.5 bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                                    Add Money {btnloader ? <i className="fas fa-circle-notch fa-spin" style={{ marginLeft: "20px" }} /> : null}
+                                </button>
+                            </div>
                         </div>
-                    </a>
-                    <a href="#" class="w-full sm:w-auto bg-gray-800 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
-                        <svg class="mr-3 w-7 h-7" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google-play" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"></path></svg>
-                        <div class="text-left">
-                            <div class="mb-1 text-xs">Get in on</div>
-                            <div class="-mt-1 font-sans text-sm font-semibold">Google Play</div>
-                        </div>
-                    </a>
-                </div> */}
-            </div>
-            <br /><br />
-            <div class="p-4 w-full text-center bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-                <h5 class="mb-2 text-3xl font-bold text-gray-900 dark:text-white">E - Wallet</h5>
-                <p class="mb-5 text-base text-gray-500 sm:text-lg dark:text-gray-400">Use E - Wallet to make payment eaiser . </p>
-                <div class="justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
-                    <a href="#" class="w-full sm:w-auto bg-gray-800 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
-                        <svg class="mr-3 w-7 h-7" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="apple" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"></path></svg>
-                        <div class="text-left">
-                            <div class="mb-1 text-xs">Download on the</div>
-                            <div class="-mt-1 font-sans text-sm font-semibold">Mac App Store</div>
-                        </div>
-                    </a>
-                    <a href="#" class="w-full sm:w-auto bg-gray-800 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
-                        <svg class="mr-3 w-7 h-7" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google-play" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"></path></svg>
-                        <div class="text-left">
-                            <div class="mb-1 text-xs">Get in on</div>
-                            <div class="-mt-1 font-sans text-sm font-semibold">Google Play</div>
-                        </div>
-                    </a>
+                    </div>
                 </div>
-            </div>
-        </>
+                <button style={{ visibility: 'hidden' }} onClick={startpay} id="rzp-button1">Pay</button>
+            </>
     )
 }
 
