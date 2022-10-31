@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
 import Dashloader from '../components/Dashloader'
 import apihit from '../static/axios'
+import staticdata from '../static/staticdata'
 
 const Wallet = () => {
 
@@ -77,7 +78,7 @@ const Wallet = () => {
     const startpay = (payd) => {
 
         var options = {
-            "key": "rzp_test_qycxQCOUz8vIWo", // Enter the Key ID generated from the Dashboard
+            "key": staticdata.paykey, // Enter the Key ID generated from the Dashboard
             "amount": payd.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
             "currency": "INR",
             "name": "Ecom Services",
@@ -120,27 +121,18 @@ const Wallet = () => {
         };
         console.log(options);
 
-        var rzp1 = new Razorpay(options);
+        // var rzp1 = new Razorpay(options);
 
-        rzp1.open();
-        // e.preventDefault();
+        // rzp1.open();
 
-        rzp1.on('payment.failed', function (response) {
-            setbtnloader(false)
-            Swal.fire({
-                icon: 'error',
-                title: 'Transaction Failed',
-                text: response.error.description,
-                // footer: '<a href="">Why do I have this issue?</a>'
-            })
-            // alert(response.error.code);
-            // alert(response.error.description);
-            // alert(response.error.source);
-            // alert(response.error.step);
-            // alert(response.error.reason);
-            // alert(response.error.metadata.order_id);
-            // alert(response.error.metadata.payment_id);
-        })
+        // rzp1.on('payment.failed', function (response) {
+        //     setbtnloader(false)
+        //     Swal.fire({
+        //         icon: 'error',
+        //         title: 'Transaction Failed',
+        //         text: response.error.description,
+        //     })
+        // })
     }
 
     useEffect(() => {

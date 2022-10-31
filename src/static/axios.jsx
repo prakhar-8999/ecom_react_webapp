@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseurl = 'https://192.168.8.134:8000/';
+const baseurl = 'https://10.21.82.176:8000/';
 
 const headers = {
     Authorization: localStorage.getItem("access")
