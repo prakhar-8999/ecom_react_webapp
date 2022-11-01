@@ -50,13 +50,6 @@ const Dashboard = () => {
         apihit.get('user/logout')
             .then(res => {
                 console.log(res);
-                message.success({
-                    content: 'Logout Successfull !!!!',
-                    className: 'custom-class',
-                    style: {
-                        marginTop: '3cm',
-                    },
-                });
                 // message.success("Logout Successfull !!!!")
                 localStorage.removeItem('access')
                 navigate("/LoginRegister")
@@ -70,13 +63,6 @@ const Dashboard = () => {
         apihit.get('user/logoutall')
             .then(res => {
                 console.log(res);
-                message.success({
-                    content: 'Logout Successfull !!!!',
-                    className: 'custom-class',
-                    style: {
-                        marginTop: '3cm',
-                    },
-                });
                 // message.success("Logout Successfull !!!!")
                 localStorage.removeItem('access')
                 navigate("/LoginRegister")

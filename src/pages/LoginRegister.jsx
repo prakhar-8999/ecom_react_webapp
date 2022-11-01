@@ -131,13 +131,6 @@ const LoginRegister = () => {
                 .then(res => {
                     localStorage.setItem('access', res.data.access)
                     console.log(res)
-                    message.success({
-                        content: 'Login Successfull !!!!',
-                        className: 'custom-class',
-                        style: {
-                            marginTop: '3cm',
-                        },
-                    });
                     setlobtn(false)
                     navigate("/Dashboard")
 
@@ -199,7 +192,7 @@ const LoginRegister = () => {
                                 <i class="fas fa-lock"></i>
                                 <input type="password" placeholder="Password" onChange={(e) => setrepass(e.target.value)} />
                             </div>
-                            <div class="grid sm:grid-cols-2 gap-2">
+                            {/* <div class="grid sm:grid-cols-2 gap-2">
                                 <label for="hs-radio-on-right" class="flex p-3 block w-full bg-white border border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400">
                                     <span class="text-sm text-gray-500 dark:text-gray-400">User</span>
                                     <input checked={reperson === 'user'} type="radio" value="user" onChange={radiochange} name="person" class="shrink-0 ml-6 mt-0.5 border-gray-200 rounded-full text-blue-600 pointer-events-none focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-radio-on-right" />
@@ -209,9 +202,19 @@ const LoginRegister = () => {
                                     <span class="text-sm text-gray-500 dark:text-gray-400">Owner</span>
                                     <input type="radio" checked={reperson === 'owner'} value="owner" onChange={radiochange} name="person" class="shrink-0 ml-6 mt-0.5 border-gray-200 rounded-full text-blue-600 pointer-events-none focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-radioradio-on-right" />
                                 </label>
-                            </div>
+                            </div> */}
+                            <div class="grid space-y-2 ml-12" style={{ width: '10cm' }}>
+                                <label for="hs-vertical-radio-in-form" class="max-w-xs flex p-3 block w-full bg-white border border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400">
+                                    <input checked={reperson === 'user'} type="radio" value="user" onChange={radiochange} name="hs-vertical-radio-in-form" class="shrink-0 mt-0.5 border-gray-200 rounded-full text-blue-600 pointer-events-none focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-vertical-radio-in-form" />
+                                    <span class="text-sm text-gray-500 ml-3 dark:text-gray-400">User</span>
+                                </label>
 
-                            <button type="submit" disabled={upbtn} class="btn">
+                                <label for="hs-vertical-radio-checked-in-form" class="max-w-xs flex p-3 block w-full bg-white border border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400">
+                                    <input checked={reperson === 'owner'} type="radio" value="owner" onChange={radiochange} name="hs-vertical-radio-in-form" class="shrink-0 mt-0.5 border-gray-200 rounded-full text-blue-600 pointer-events-none focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-vertical-radio-checked-in-form" />
+                                    <span class="text-sm text-gray-500 ml-3 dark:text-gray-400">Owner</span>
+                                </label>
+                            </div>
+                            <button type="submit" style={{ marginTop: '1cm' }} disabled={upbtn} class="btn">
                                 Sign Up {upbtn ? <i className="fas fa-circle-notch fa-spin" style={{ marginLeft: "20px" }} /> : null}
                             </button>
                             <p class="social-text">Or Sign up with social platforms</p>
