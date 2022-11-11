@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Swal from 'sweetalert2'
+import apihit from '../static/axios'
 
 const Addproducts = () => {
 
@@ -7,7 +8,7 @@ const Addproducts = () => {
 
     const [pdname, setpdname] = useState('')
     const [pdprice, setpdprice] = useState('')
-
+    const [pddes, setpddes] = useState('')
     const [imdisplay, setimdisplay] = useState(false)
 
     const AddProduct = () => {
@@ -32,6 +33,28 @@ const Addproducts = () => {
         else {
             console.log({ productname: pdname, productprice: pdprice })
             console.log(document.getElementById('product-file').files[0]);
+            var pic = document.getElementById('product-file').files[0];
+            const data = new FormData();
+            data.append('product', pic);
+            data.append('product_name', pdname)
+            data.append('product_description', pddes)
+            data.append('product_price', pdprice)
+            apihit.post('user/addproduct', data)
+                .then(res => {
+                    console.log(res);
+                    setpdname('')
+                    setpdprice('')
+                    setpddes('')
+                    document.getElementById('product-show').src = '';
+                    Swal.fire({
+                        icon: 'success',
+                        title: res.data.msg
+                    })
+                    setimdisplay(false)
+                })
+                .catch(err => {
+                    console.log(err);
+                })
         }
     }
 
@@ -59,8 +82,9 @@ const Addproducts = () => {
             <p class="text-2xl">Enter Product Details</p>
             <br /><br />
             {/* <div class="justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4"> */}
-            <input type="text" onChange={e => setpdname(e.target.value)} class="py-3 px-5 bg-gray-100 block w-full border-gray-500 rounded-full text-sm focus:border-gray-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400" placeholder="Product Name" /><br />
-            <input type="number" onChange={e => setpdprice(e.target.value)} class="py-3 px-5 bg-gray-100 block w-full border-gray-500 rounded-full text-sm focus:border-gray-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400" placeholder="Product Price" /><br />
+            <input type="text" value={pdname} onChange={e => setpdname(e.target.value)} class="py-3 px-5 bg-gray-100 block w-full border-gray-500 rounded-full text-sm focus:border-gray-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400" placeholder="Product Name" /><br />
+            <input type="text" value={pddes} onChange={e => setpddes(e.target.value)} class="py-3 px-5 bg-gray-100 block w-full border-gray-500 rounded-full text-sm focus:border-gray-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400" placeholder="Product Description" /><br />
+            <input type="number" value={pdprice} onChange={e => setpdprice(e.target.value)} class="py-3 px-5 bg-gray-100 block w-full border-gray-500 rounded-full text-sm focus:border-gray-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400" placeholder="Product Price" /><br />
             {/* <input type="text" class="py-3 px-5 bg-gray-200 block w-full border-gray-500 rounded-full text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400" placeholder="Product Name" /> */}
             {/* </div> */}
 
@@ -70,12 +94,12 @@ const Addproducts = () => {
                         <img class="object-cover w-full h-64" src="" alt="" id="product-show" />
                         <div class="absolute w-full" style={{ display: imdisplay ? 'block' : 'none' }}>
                             <center><svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg></center>
-                            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span></p>
                             <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                         </div>
                         <div style={{ display: imdisplay ? 'none' : 'block' }}>
                             <center><svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg></center>
-                            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span></p>
                             <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                         </div>
                     </div>

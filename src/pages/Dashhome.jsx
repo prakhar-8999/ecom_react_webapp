@@ -6,7 +6,7 @@ const Dashhome = () => {
             <div class="cards">
                 <div class="card-single">
                     <div>
-                        <h1>50</h1>
+                        <h1>0</h1>
                         <span>Customers</span>
                     </div>
                     <div>
@@ -15,7 +15,7 @@ const Dashhome = () => {
                 </div>
                 <div class="card-single">
                     <div>
-                        <h1>12</h1>
+                        <h1>0</h1>
                         <span>Projects</span>
                     </div>
                     <div>
@@ -24,7 +24,7 @@ const Dashhome = () => {
                 </div>
                 <div class="card-single">
                     <div>
-                        <h1>15</h1>
+                        <h1>0</h1>
                         <span>Orders</span>
                     </div>
                     <div>
@@ -33,7 +33,7 @@ const Dashhome = () => {
                 </div>
                 <div class="card-single">
                     <div>
-                        <h1>$50K</h1>
+                        <h1>0</h1>
                         <span>Income</span>
                     </div>
                     <div>

@@ -109,11 +109,11 @@ const Dashboard = () => {
                                 {/* Dashboard */}
                             </h2>
 
-                            <div class="search-wrapper">
+                            {/* <div class="search-wrapper">
                                 <span class="fas fa-search"> </span>
                                 <input type="search" placeholder="Search..." />
 
-                            </div>
+                            </div> */}
                             <div class="hs-dropdown relative inline-flex">
                                 <button id="hs-dropdown-custom-icon-trigger" class="user-wrapper">
                                     <img src={deimg} width="40px" height="40px" alt="profile-img" />

@@ -19,6 +19,13 @@ const Alert = (alert, messg) => {
                 timer: 1000
             })
         }
+        else if (alert === 500) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Server Not Responding !!!!',
+                text: "Your Request can't be processed at this time"
+            })
+        }
     }
 
     givealert();

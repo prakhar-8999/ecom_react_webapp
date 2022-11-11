@@ -1,6 +1,6 @@
 import axios from "axios";
-
-const baseurl = 'https://10.21.82.34:8000/';
+import staticdata from '../static/staticdata'
+// const baseurl = 'https://10.21.82.34:8000/';
 
 const headers = {
     Authorization: localStorage.getItem("access")
@@ -9,7 +9,7 @@ const headers = {
 };
 
 const apihit = axios.create({
-    baseURL: baseurl,
+    baseURL: staticdata.baseurl,
     headers: headers,
 
 })
