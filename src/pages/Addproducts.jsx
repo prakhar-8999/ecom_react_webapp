@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Swal from 'sweetalert2'
 import apihit from '../static/axios'
-
+import Alert from '../static/Alert'
 const Addproducts = () => {
 
     const [addbtn, setaddbtn] = useState(false)
@@ -54,6 +54,7 @@ const Addproducts = () => {
                 })
                 .catch(err => {
                     console.log(err);
+                    Alert(err.response.status, err.response.data.msg)
                 })
         }
     }

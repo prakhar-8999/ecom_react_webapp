@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Swal from 'sweetalert2';
 import Dashloader from '../components/Dashloader';
 import apihit from '../static/axios';
+import Alert from '../static/Alert';
 
 const Profile = () => {
 
@@ -26,6 +27,7 @@ const Profile = () => {
             })
             .catch(err => {
                 console.log(err);
+                Alert(err.response.status, err.response.data.msg)
             })
     }
 
@@ -64,6 +66,7 @@ const Profile = () => {
                     })
                     .catch(err => {
                         console.log(err);
+                        Alert(err.response.status, err.response.data.msg)
                     })
             }
         }
@@ -77,6 +80,7 @@ const Profile = () => {
                 })
                 .catch(err => {
                     console.log(err);
+                    Alert(err.response.status, err.response.data.msg)
                 })
         }
     }

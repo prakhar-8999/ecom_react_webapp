@@ -26,6 +26,22 @@ const Alert = (alert, messg) => {
                 text: "Your Request can't be processed at this time"
             })
         }
+        else if (alert === 401) {
+            Swal.fire({
+                title: 'Unauthorized !!',
+                text: "You are Unauthenticated !",
+                icon: 'error',
+                allowOutsideClick: false,
+                // showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                // cancelButtonColor: '#d33',
+                confirmButtonText: 'Go Back to Login Page'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/LoginRegister'
+                }
+            })
+        }
     }
 
     givealert();

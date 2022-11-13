@@ -3,6 +3,7 @@ import Swal from 'sweetalert2'
 import Dashloader from '../components/Dashloader'
 import apihit from '../static/axios'
 import staticdata from '../static/staticdata'
+import Alert from '../static/Alert'
 
 const Wallet = () => {
 
@@ -25,6 +26,7 @@ const Wallet = () => {
             })
             .catch(err => {
                 console.log(err);
+                Alert(err.response.status, err.response.data.msg)
             })
     }
 
@@ -37,6 +39,7 @@ const Wallet = () => {
             })
             .catch(err => {
                 console.log(err);
+                Alert(err.response.status, err.response.data.msg)
             })
     }
 
@@ -59,6 +62,7 @@ const Wallet = () => {
                 })
                 .catch(err => {
                     console.log(err);
+                    Alert(err.response.status, err.response.data.msg)
                 })
         }
 
@@ -102,6 +106,7 @@ const Wallet = () => {
                     .catch(err => {
                         console.log(err);
                         setbtnloader(false)
+                        Alert(err.response.status, err.response.data.msg)
                     })
                 // alert(response.razorpay_payment_id);
                 // alert(response.razorpay_order_id);

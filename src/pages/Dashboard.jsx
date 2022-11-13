@@ -1,11 +1,19 @@
 // import 'antd/dist/antd.css';
 import React, { useState, useEffect } from 'react'
-import { Link, Outlet, useNavigate } from 'react-router-dom'
+import { json, Link, Outlet, useNavigate } from 'react-router-dom'
 import apihit from '../static/axios'
 import '../styles/dashboard.css'
 import deimg from '../images/default.png'
 import Dashloader from '../components/Dashloader'
-import { message } from 'antd'
+import Alert from '../static/Alert'
+import QrReader from 'react-qr-scanner'
+
+const previewStyle = {
+    height: '100%',
+    width: '100%',
+}
+
+
 
 const Dashboard = () => {
 
@@ -15,6 +23,7 @@ const Dashboard = () => {
     const [leftside, setleftside] = useState([])
 
     const [loader, setloader] = useState(true)
+    const [show, setshow] = useState(false)
 
     const dashhit = () => {
         apihit.get('user/details')
@@ -25,6 +34,7 @@ const Dashboard = () => {
             })
             .catch(err => {
                 console.log(err);
+                Alert(err.response.status, err.response.data.msg)
             })
     }
 
@@ -37,6 +47,7 @@ const Dashboard = () => {
             })
             .catch(err => {
                 console.log(err);
+                Alert(err.response.status, err.response.data.msg)
             })
     }
 
@@ -56,6 +67,7 @@ const Dashboard = () => {
             })
             .catch(err => {
                 console.log(err);
+                Alert(err.response.status, err.response.data.msg)
             })
     }
 
@@ -69,13 +81,47 @@ const Dashboard = () => {
             })
             .catch(err => {
                 console.log(err);
+                Alert(err.response.status, err.response.data.msg)
             })
     }
 
+    const openqr = () => {
+        if (show) {
+            setshow(false)
+        }
+        else {
+            setshow(true)
+        }
+
+    }
+
+    const handleError = (err) => {
+        console.log(err);
+        setshow(false)
+    }
+    const handleScan = (result) => {
+        console.log(result);
+        if (result !== null)
+            setshow(false)
+    }
 
     return (
         loader ? <Dashloader /> :
             <>
+
+                <div style={{ display: show ? 'block' : 'none' }}>
+                    {
+                        show ? <QrReader
+                            delay={2000}
+                            style={previewStyle}
+                            onError={handleError}
+                            onScan={handleScan}
+                        /> : null
+                    }
+                    {/* <p>{this.state.result}</p> */}
+                </div>
+
+
                 <div>
                     <input type="checkbox" id="nav-toggle" />
                     <div class="sidebar">
@@ -114,6 +160,9 @@ const Dashboard = () => {
                                 <input type="search" placeholder="Search..." />
 
                             </div> */}
+                            <button onClick={openqr}>Open qr </button>
+
+
                             <div class="hs-dropdown relative inline-flex">
                                 <button id="hs-dropdown-custom-icon-trigger" class="user-wrapper">
                                     <img src={deimg} width="40px" height="40px" alt="profile-img" />

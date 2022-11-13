@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import apihit from '../static/axios';
 import Footer from '../components/Footer';
 import '../styles/loginregister.css'
@@ -142,6 +142,22 @@ const LoginRegister = () => {
                 })
         }
     }
+
+    const getUser = () => {
+        apihit.get('user/details')
+            .then(res => {
+                console.log(res);
+                navigate("/Dashboard")
+            })
+            .catch(err => {
+                console.log(err);
+                // Alert(err.response.status, err.response.data.msg)
+            })
+    }
+
+    useEffect(() => {
+        getUser()
+    }, [])
 
 
     return (
