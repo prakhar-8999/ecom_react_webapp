@@ -7,6 +7,7 @@ import deimg from '../images/default.png'
 import Dashloader from '../components/Dashloader'
 import Alert from '../static/Alert'
 import QrReader from 'react-qr-scanner'
+import Swal from 'sweetalert2'
 
 const previewStyle = {
     height: '100%',
@@ -101,8 +102,27 @@ const Dashboard = () => {
     }
     const handleScan = (result) => {
         console.log(result);
-        if (result !== null)
+        if (result !== null) {
             setshow(false)
+            console.log(result.text);
+            // var obj = JSON.parse(result.text)
+            // console.log(obj);
+            apihit.post('user/addviaqr', { data: result.text })
+                .then(res => {
+                    console.log(res)
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Product Added to Cart !!!!'
+                    })
+                })
+                .catch(err => {
+                    console.log(err);
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Product Already in Cart !!!!'
+                    })
+                })
+        }
     }
 
     return (
@@ -160,7 +180,7 @@ const Dashboard = () => {
                                 <input type="search" placeholder="Search..." />
 
                             </div> */}
-                            <button onClick={openqr}>Open qr </button>
+                            {/* <button onClick={openqr}>Open qr </button> */}
 
 
                             <div class="hs-dropdown relative inline-flex">
@@ -177,7 +197,9 @@ const Dashboard = () => {
                                 <div class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden mt-2 min-w-[15rem] bg-white shadow-md rounded-lg p-2 mt-2 dark:bg-gray-800 dark:border dark:border-gray-700" aria-labelledby="hs-dropdown-custom-icon-trigger">
 
 
-
+                                    <button onClick={openqr} style={{ width: '100%' }} class="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="#">
+                                        <i class="fa-solid fa-qrcode"></i> Scan Qr
+                                    </button>
                                     <button onClick={logout} style={{ width: '100%' }} class="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="#">
                                         <i class="fa-solid fa-right-from-bracket"></i> Logout
                                     </button>
