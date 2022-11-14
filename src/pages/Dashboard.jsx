@@ -136,6 +136,7 @@ const Dashboard = () => {
                             style={previewStyle}
                             onError={handleError}
                             onScan={handleScan}
+                            facingMode={rear}
                         /> : null
                     }
                     {/* <p>{this.state.result}</p> */}
