@@ -173,7 +173,7 @@ const Wallet = () => {
                                 <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                                     <i class="fa-solid fa-coins"></i>
                                 </div>
-                                <input type="number" value={money} id="search" onChange={(e) => setmoney(e.target.value)} class=" p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Money" />
+                                <input type="number" value={money} id="search" onChange={(e) => setmoney(e.target.value)} class=" p-4 pl-10 w-full sm:w-[20rem] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Money" />
                                 <button type="button" disabled={btnloader} onClick={Addmoney} class="text-white absolute right-2.5 bottom-2.5 bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                                     Add Money {btnloader ? <i className="fas fa-circle-notch fa-spin" style={{ marginLeft: "20px" }} /> : null}
                                 </button>

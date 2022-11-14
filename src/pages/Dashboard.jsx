@@ -8,7 +8,7 @@ import Dashloader from '../components/Dashloader'
 import Alert from '../static/Alert'
 import QrReader from 'react-qr-scanner'
 import Swal from 'sweetalert2'
-
+import logo from '../images/elogo.png'
 const previewStyle = {
     height: '100%',
     width: '100%',
@@ -147,7 +147,11 @@ const Dashboard = () => {
                     <input type="checkbox" id="nav-toggle" />
                     <div class="sidebar">
                         <div class="sidebar-brand">
-                            <h1> <span class="fab fa-asymmetrik"> </span> <span>Aizcar</span>
+                            <div class='flex'>
+                                <img src={logo} alt="logo" class="mr-3 h-8" />
+                                <span>INNOCART</span>
+                            </div>
+                            <h1>
                             </h1>
                         </div>
 

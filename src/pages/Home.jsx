@@ -161,9 +161,7 @@ const Home = () => {
                         </div>
                     </div>
                 </section>
-                <div class="mob-view">
-                    <Footer />
-                </div>
+                <Footer />
 
             </>
 
