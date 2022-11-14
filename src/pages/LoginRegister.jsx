@@ -279,9 +279,7 @@ const LoginRegister = () => {
                     </div>
                 </div>
             </div>
-            <div class="mob-view">
-                <Footer />
-            </div>
+
 
 
 
