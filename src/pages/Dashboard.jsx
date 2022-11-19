@@ -145,23 +145,23 @@ const Dashboard = () => {
 
                 <div>
                     <input type="checkbox" id="nav-toggle" />
-                    <div class="sidebar">
-                        <div class="sidebar-brand">
-                            <div class='flex'>
-                                <img src={logo} alt="logo" class="mr-3 h-8" />
+                    <div className="sidebar">
+                        <div className="sidebar-brand">
+                            <div className='flex'>
+                                <img src={logo} alt="logo" className="mr-3 h-8" />
                                 <span>INNOCART</span>
                             </div>
                             <h1>
                             </h1>
                         </div>
 
-                        <div class="sidebar-menu">
+                        <div className="sidebar-menu">
                             <ul>
                                 {
                                     leftside.map((l) => (
-                                        <li>
-                                            <Link to={l.url} key={l.id}>
-                                                <span class={l.icons}></span>
+                                        <li key={l.id}>
+                                            <Link to={l.url}>
+                                                <span className={l.icons}></span>
                                                 <span>{l.field}</span>
                                             </Link>
                                         </li>
@@ -171,27 +171,27 @@ const Dashboard = () => {
                         </div>
                     </div>
 
-                    <div class="main-content">
+                    <div className="main-content">
                         <header>
                             <h2>
-                                <label for="nav-toggle">
-                                    <span class="fas fa-bars"></span>
+                                <label htmlFor="nav-toggle">
+                                    <span className="fas fa-bars"></span>
                                 </label>
                                 {/* Dashboard */}
                             </h2>
 
-                            {/* <div class="search-wrapper">
-                                <span class="fas fa-search"> </span>
+                            {/* <div className="search-wrapper">
+                                <span className="fas fa-search"> </span>
                                 <input type="search" placeholder="Search..." />
 
                             </div> */}
                             {/* <button onClick={openqr}>Open qr </button> */}
 
 
-                            <div class="hs-dropdown relative inline-flex">
-                                <button id="hs-dropdown-custom-icon-trigger" class="user-wrapper">
+                            <div className="hs-dropdown relative inline-flex">
+                                <button id="hs-dropdown-custom-icon-trigger" className="user-wrapper">
                                     <img src={deimg} width="40px" height="40px" alt="profile-img" />
-                                    <div class="">
+                                    <div className="">
                                         <h4>{usdata.username}</h4>
                                         {/* <small>Super Admin</small> */}
                                     </div>
@@ -199,17 +199,17 @@ const Dashboard = () => {
 
 
 
-                                <div class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden mt-2 min-w-[15rem] bg-white shadow-md rounded-lg p-2 mt-2 dark:bg-gray-800 dark:border dark:border-gray-700" aria-labelledby="hs-dropdown-custom-icon-trigger">
+                                <div className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden mt-2 min-w-[15rem] bg-white shadow-md rounded-lg p-2 mt-2 dark:bg-gray-800 dark:border dark:border-gray-700" aria-labelledby="hs-dropdown-custom-icon-trigger">
 
 
-                                    <button onClick={openqr} style={{ width: '100%' }} class="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="#">
-                                        <i class="fa-solid fa-qrcode"></i> Scan Qr
+                                    <button onClick={openqr} style={{ width: '100%' }} className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="#">
+                                        <i className="fa-solid fa-qrcode"></i> Scan Qr
                                     </button>
-                                    <button onClick={logout} style={{ width: '100%' }} class="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="#">
-                                        <i class="fa-solid fa-right-from-bracket"></i> Logout
+                                    <button onClick={logout} style={{ width: '100%' }} className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="#">
+                                        <i className="fa-solid fa-right-from-bracket"></i> Logout
                                     </button>
-                                    <button onClick={logoutAll} style={{ width: '100%' }} class="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="#">
-                                        <i class="fa-solid fa-right-from-bracket"></i> Logout from all Devices
+                                    <button onClick={logoutAll} style={{ width: '100%' }} className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="#">
+                                        <i className="fa-solid fa-right-from-bracket"></i> Logout from all Devices
                                     </button>
                                 </div>
                             </div>

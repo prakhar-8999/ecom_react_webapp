@@ -88,32 +88,32 @@ const Profile = () => {
 
     return (
         loader ? <Dashloader /> :
-            <section class="text-gray-600 body-font">
-                <div class="container px-5 py-24 mx-auto flex flex-col">
-                    <div class="lg:w-4/6 mx-auto">
-                        <div class="flex flex-col sm:flex-row mt-10">
-                            <div class="sm:w-1/3 text-center sm:pr-8 sm:py-8">
-                                <div class="w-20 h-20 rounded-full inline-flex items-center justify-center bg-gray-200 text-gray-400">
-                                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10" viewBox="0 0 24 24">
+            <section className="text-gray-600 body-font">
+                <div className="container px-5 py-24 mx-auto flex flex-col">
+                    <div className="lg:w-4/6 mx-auto">
+                        <div className="flex flex-col sm:flex-row mt-10">
+                            <div className="sm:w-1/3 text-center sm:pr-8 sm:py-8">
+                                <div className="w-20 h-20 rounded-full inline-flex items-center justify-center bg-gray-200 text-gray-400">
+                                    <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-10 h-10" viewBox="0 0 24 24">
                                         <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
                                         <circle cx="12" cy="7" r="4"></circle>
                                     </svg>
                                 </div>
-                                <div class="flex flex-col items-center text-center justify-center">
-                                    <h2 class="font-medium title-font mt-4 text-gray-900 text-lg">{prodata.username}</h2>
-                                    <div class="w-12 h-1 bg-indigo-500 rounded mt-2 mb-4"></div>
-                                    <p class="text-base">{prodata.Name}</p>
-                                    <p class="text-base mt-2">{prodata.Phone}</p>
-                                    <p class="text-base mt-2">{prodata.Email}</p>
-                                    <p class="text-base mt-2">{prodata.gst_num}</p>
+                                <div className="flex flex-col items-center text-center justify-center">
+                                    <h2 className="font-medium title-font mt-4 text-gray-900 text-lg">{prodata.username}</h2>
+                                    <div className="w-12 h-1 bg-indigo-500 rounded mt-2 mb-4"></div>
+                                    <p className="text-base">{prodata.Name}</p>
+                                    <p className="text-base mt-2">{prodata.Phone}</p>
+                                    <p className="text-base mt-2">{prodata.Email}</p>
+                                    <p className="text-base mt-2">{prodata.gst_num}</p>
                                 </div>
                             </div>
-                            <div class="sm:w-2/3 sm:pl-8 sm:py-8 sm:border-l border-gray-200 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-center sm:text-left">
-                                <h3 class="leading-relaxed text-2xl mb-4">Complete Your Profile to explore more</h3><br />
-                                <input type="text" value={name} onChange={(e) => setname(e.target.value)} class="py-3 px-5 block w-full border-gray-200 rounded-full text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400" placeholder="Your Name" /> <br />
-                                <input type="number" value={phone} onChange={(e) => setphone(e.target.value)} class="py-3 px-5 block w-full border-gray-200 rounded-full text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400" placeholder="Phone" /> <br />
-                                <input type="text" value={gst} onChange={(e) => setgst(e.target.value)} style={{ display: prodata.who === 'owner' ? 'block' : 'none' }} class="py-3 px-5 block w-full border-gray-200 rounded-full text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400" placeholder="GST Number" /> <br />
-                                <button onClick={updateprofile} disabled={updatebtn} class="py-3 px-5 block w-full rounded-full bg-green-300 hover:bg-green-400">
+                            <div className="sm:w-2/3 sm:pl-8 sm:py-8 sm:border-l border-gray-200 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-center sm:text-left">
+                                <h3 className="leading-relaxed text-2xl mb-4">Complete Your Profile to explore more</h3><br />
+                                <input type="text" value={name} onChange={(e) => setname(e.target.value)} className="py-3 px-5 block w-full border-gray-200 rounded-full text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400" placeholder="Your Name" /> <br />
+                                <input type="number" value={phone} onChange={(e) => setphone(e.target.value)} className="py-3 px-5 block w-full border-gray-200 rounded-full text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400" placeholder="Phone" /> <br />
+                                <input type="text" value={gst} onChange={(e) => setgst(e.target.value)} style={{ display: prodata.who === 'owner' ? 'block' : 'none' }} className="py-3 px-5 block w-full border-gray-200 rounded-full text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400" placeholder="GST Number" /> <br />
+                                <button onClick={updateprofile} disabled={updatebtn} className="py-3 px-5 block w-full rounded-full bg-green-300 hover:bg-green-400">
                                     Update {updatebtn ? <i className="fas fa-circle-notch fa-spin" style={{ marginLeft: "20px" }} /> : null}
                                 </button>
                             </div>

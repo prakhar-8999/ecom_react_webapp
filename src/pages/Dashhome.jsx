@@ -22,41 +22,41 @@ const Dashhome = () => {
 
     return (
         <>
-            <div class="cards">
-                <div class="card-single">
+            <div className="cards">
+                <div className="card-single">
                     <div>
                         <h1>{count.l}</h1>
                         <span>Logged in Device</span>
                     </div>
                     <div>
-                        <span class="fas fa-users"></span>
+                        <span className="fas fa-users"></span>
                     </div>
                 </div>
-                <div class="card-single">
+                <div className="card-single">
                     <div>
                         <h1>{count.c}</h1>
                         <span>Cart</span>
                     </div>
                     <div>
-                        <span class="fas fa-clipboard-list"></span>
+                        <span className="fas fa-clipboard-list"></span>
                     </div>
                 </div>
-                <div class="card-single">
+                <div className="card-single">
                     <div>
                         <h1>{count.o}</h1>
                         <span>Orders</span>
                     </div>
                     <div>
-                        <span class="fas fa-shopping-cart"></span>
+                        <span className="fas fa-shopping-cart"></span>
                     </div>
                 </div>
-                <div class="card-single">
+                <div className="card-single">
                     <div>
                         <h1>{count.w}</h1>
                         <span>E-Wallet</span>
                     </div>
                     <div>
-                        <span class="fas fa-wallet"></span>
+                        <span className="fas fa-wallet"></span>
                     </div>
                 </div>
 

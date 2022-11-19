@@ -126,18 +126,18 @@ const Wallet = () => {
         };
         console.log(options);
 
-        // var rzp1 = new Razorpay(options);
+        var rzp1 = new window.Razorpay(options)
 
-        // rzp1.open();
+        rzp1.open();
 
-        // rzp1.on('payment.failed', function (response) {
-        //     setbtnloader(false)
-        //     Swal.fire({
-        //         icon: 'error',
-        //         title: 'Transaction Failed',
-        //         text: response.error.description,
-        //     })
-        // })
+        rzp1.on('payment.failed', function (response) {
+            setbtnloader(false)
+            Swal.fire({
+                icon: 'error',
+                title: 'Transaction Failed',
+                text: response.error.description,
+            })
+        })
     }
 
     useEffect(() => {
@@ -149,32 +149,32 @@ const Wallet = () => {
     return (
         loader ? <Dashloader /> :
             <>
-                <div class="p-4 w-full text-center bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-                    <h5 class="mb-2 text-3xl font-bold text-gray-900 dark:text-white">E - Wallet</h5>
-                    <p class="mb-5 text-base text-gray-500 sm:text-lg dark:text-gray-400">Use E - Wallet to make payment eaiser . </p>
+                <div className="p-4 w-full text-center bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                    <h5 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white">E - Wallet</h5>
+                    <p className="mb-5 text-base text-gray-500 sm:text-lg dark:text-gray-400">Use E - Wallet to make payment eaiser . </p>
                     <br /><br />
-                    <div class="grid grid-cols-2 divide-x divide-green-900">
+                    <div className="grid grid-cols-2 divide-x divide-green-900">
                         <div>
-                            <span class="text-2xl font-semibold" style={{ float: 'left' }}>Balance</span>
+                            <span className="text-2xl font-semibold" style={{ float: 'left' }}>Balance</span>
 
                         </div>
-                        <div><span class="text-3xl mr-6 font-semibold" style={{ float: 'right', color: wallet.balance < 100 ? 'red' : 'green' }}>{wallet.balance}</span></div>
+                        <div><span className="text-3xl mr-6 font-semibold" style={{ float: 'right', color: wallet.balance < 100 ? 'red' : 'green' }}>{wallet.balance}</span></div>
                     </div>
                     <br /><br />
                     <hr />
                     <br />
                 </div>
                 <br /><br />
-                <div class="p-4 w-full text-center bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-                    <p class="mb-5 text-base text-gray-500 sm:text-lg dark:text-gray-400">Add Money to your wallet Instantly , Safe and Secure !</p>
-                    <div class="justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
+                <div className="p-4 w-full text-center bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                    <p className="mb-5 text-base text-gray-500 sm:text-lg dark:text-gray-400">Add Money to your wallet Instantly , Safe and Secure !</p>
+                    <div className="justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
                         <div>
-                            <div class="relative">
-                                <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                                    <i class="fa-solid fa-coins"></i>
+                            <div className="relative">
+                                <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                                    <i className="fa-solid fa-coins"></i>
                                 </div>
-                                <input type="number" value={money} id="search" onChange={(e) => setmoney(e.target.value)} class=" p-4 pl-10 w-full sm:w-[20rem] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Money" />
-                                <button type="button" disabled={btnloader} onClick={Addmoney} class="text-white absolute right-2.5 bottom-2.5 bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                                <input type="number" value={money} id="search" onChange={(e) => setmoney(e.target.value)} className=" p-4 pl-10 w-full sm:w-[20rem] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Money" />
+                                <button type="button" disabled={btnloader} onClick={Addmoney} className="text-white absolute right-2.5 bottom-2.5 bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                                     Add Money {btnloader ? <i className="fas fa-circle-notch fa-spin" style={{ marginLeft: "20px" }} /> : null}
                                 </button>
                             </div>
